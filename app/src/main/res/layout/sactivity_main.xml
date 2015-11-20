@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <Button
+        android:id="@+id/create_user"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="create user"/>
+    <Button
+        android:id="@+id/create_first_type"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="create first type"/>
+    <Button
+        android:id="@+id/create_second_type"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="create second type"/>
+    <Button
+        android:id="@+id/create_third_type"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="create third type"/>
+    <Button
+        android:id="@+id/create_product"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="create a product"/>
+    <Button
+        android:id="@+id/up_load_product_photo_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="上传product图片"/>
+</LinearLayout>
+
+</ScrollView>

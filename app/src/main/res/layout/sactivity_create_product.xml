@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <EditText
+        android:id="@+id/edit_product_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="输入 product name"/>
+    <EditText
+        android:id="@+id/edit_product_price"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:numeric="decimal"
+        android:maxLength="10"
+        android:hint="输入 product price"/>
+    <EditText
+        android:id="@+id/edit_product_onsale"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:numeric="decimal"
+        android:maxLength="10"
+        android:hint="输入 product on sale"/>
+    <EditText
+        android:id="@+id/edit_count"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:numeric="integer"
+        android:maxLength="5"
+        android:hint="输入 product count"/>
+    <EditText
+        android:id="@+id/edit_product_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:maxLength="100"
+        android:hint="输入 product description"/>
+    <EditText
+        android:id="@+id/edit_product_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="输入 product date"/>
+    <EditText
+        android:id="@+id/edit_product_life"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="输入 product life"/>
+    <Button
+        android:id="@+id/choose_first_type_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="点击选择FirstType"/>
+    <Button
+        android:id="@+id/choose_second_type_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="点击选择SecondType"/>
+    <Button
+        android:id="@+id/choose_third_type_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="点击选择ThirdType"/>
+    <Button
+        android:id="@+id/choose_product_status_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="点击选择product status"/>
+
+    <Button
+        android:id="@+id/commit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="commit"/>
+</LinearLayout>
+</ScrollView>

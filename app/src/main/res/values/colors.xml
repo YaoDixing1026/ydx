@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <color name="transparent">#00000000</color>
+    <color name="half_transparent">#80000000</color>
+    <color name="white">#ffffff</color>
+    <color name="black">#000000</color>
+    <color name="black_light">#080808</color>
+    <color name="black_home_page">#191919</color>
+    <color name="black_dark">#1b1b1b</color>
+    <color name="black_dark_light">#383838</color>
+    <color name="green">#00bc12</color>
+    <color name="gray_dark">#afafaf</color>
+    <color name="gray_text">#c0c0c0</color>
+    <color name="gray_background">#fff0f0f0</color>
+    <color name="list_gray_background">#F7F7F7</color>
+    <color name="gray_light_background">#F5F5F5</color>
+    <color name="line_color">#d7d7d7</color>
+    <color name="gray_tab">#fff8f8f8</color>
+    <color name="gray_tab_text">#ff7a7e83</color>
+    <color name="gray_light">#fffafafa</color>
+    <color name="gray_dark_per_title">#838383</color>
+    <color name="gray_dark_per_txt">#969696</color>
+    <color name="gray_light_dark">#6a6a6a</color>
+    <color name="gray_dark_light_light">#979797</color>
+    <color name="gray_light_dark_light">#626262</color>
+    <color name="gray_dark_light_txt">#969696</color>
+    <color name="gray_dark_dark_txt">#3a3a3a</color>
+    <color name="gray_dark_dark_light_txt">#3f3f3f</color>
+    <color name="shadow_province_color">#ababab</color>
+
+    <color name="gray_light_light">#a9acab</color>
+
+    <color name="gray">#F2F2F2</color>
+    <color name="blue">#1086f4</color>
+    <color name="blue_light">#ffe2ebff</color>
+    <color name="blue_light_title">#00B3C8</color>
+    <color name="blue_light_process">#00C3C8</color>
+    <color name="blue_frame">#ff68E0EB</color>
+
+    <color name="gray_frame">#ffdcdede</color>
+    <color name="comment_txt_color">#C7C7CA</color>
+
+    <color name="red">#ff0000</color>
+    <color name="custom_blue_dark">#3abac8</color>
+    <color name="custom_blue">#00bcd4</color>
+    <color name="transp_custom_blue">#9000bcd4</color>
+    <color name="custom_gray">#c3c3c3</color>
+    <color name="custom_gray_light">#dfdfde</color>
+    <color name="custom_gray_extra_light">#eaeaea</color>
+    <color name="custom_black">#585858</color>
+    <color name="custom_orange">#FF7F66</color>
+    <color name="my_orange">#FF8D73</color>
+    <color name="custom_gray_perbg">#F5F0EC</color>
+
+    <color name="translucent_background">#60000000</color>
+
+    <color name="search_txt">#28090909</color>
+
+    <color name="prescription_txt_color">#ff090909</color>
+    <color name="prescription_time_color">#ff090909</color>
+
+    <color name="yellow">#F2CE14</color>
+
+    <color name="prescription_yellow">#F2CE14</color>
+    <color name="prescription_blue">#36D5E4</color>
+    <color name="prescription_green">#8ADDD5</color>
+    <color name="prescription_red">#FF5D3E</color>
+
+    <color name="v1_blue">#00BCD4</color>
+    <color name="v1_gray">#A7A7A7</color>
+
+    <color name="gray_dark_per_bg">#f2f2f2</color>
+
+    <color name="gray_light_color">#b3b3b3</color>
+
+    <color name="line">#D1D1D1</color>
+
+    <color name="text_color_comment_user">#333333</color>
+
+    <color name="text_color">#383838</color>
+    <color name="text_color_gary">#989898</color>
+    <!--<color name="text_color_green">#7991a9</color>-->
+    
+    <color name="text_color_blue">#B0BEC5</color>
+
+
+    <color name="btn_green">#80cbc4</color>
+    <color name="back_green">#00cfe2</color>
+
+    <color name="btn_select_bg">#00bcd4</color>
+    <color name="gray_search_bg">#f0f0f0</color>
+    <color name="gray_search_hint_txt">#aaaaaa</color>
+
+    <color name="gray_search_hint_icontxt">#a9a9a9</color>
+    <color name="text_color_more_new">#7991AB</color>
+
+    <color name="text_color_comment_tab_pressed">#67635f</color>
+    <color name="text_color_comment_tab_release">#a19c98</color>
+
+    <color name="text_no_comment">#797979</color>
+
+
+    <!--1.51-->
+    <color name="view_plane_line">#A4A4A4</color>
+    <color name="pai_yi_pai">#4C4C4C</color>
+    <color name="sou_yi_sou">#B2B2B2</color>
+    <color name="yin_he">#EBEBEB</color>
+    <color name="hot_expert">#3D3D3D</color>
+    <color name="shop_address">#767676</color>
+    <color name="address_shop">#222222</color>
+    <color name="line_line">#E2E2E4</color>
+    <color name="line_ver">#E5E5E5</color>
+    <color name="six_six">#666666</color>
+    <color name="ming_yi_zi_fx">#CFCFCF</color>
+    <!--Restructure by zc begin-->
+    <color name="whiteness">#ffffff</color>
+    <!--Restructure end-->
+
+
+</resources>

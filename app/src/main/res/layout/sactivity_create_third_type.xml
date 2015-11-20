@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <EditText
+        android:id="@+id/edit_first_type"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="输入thirdtype"/>
+    <Button
+        android:id="@+id/choose_first_type_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="点击选择FirstType"/>
+    <Button
+        android:id="@+id/choose_second_type_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="点击选择SecondType"/>
+    <Button
+        android:id="@+id/commit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="commit"/>
+</LinearLayout>

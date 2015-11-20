@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.product.yao.myapp" >
+
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+
+    <application
+        android:name=".base.BaseApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@android:style/Theme.Holo.Light.NoActionBar" >
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+
+        </activity>
+
+
+
+
+        <!--111111111111111111111111111111111111111111111111111111111111111111111111111-->
+        <activity android:name=".sactivity.MainActivity"/>
+        <activity android:name=".sactivity.create.CreateFirstTypeAcitvity"/>
+        <activity android:name=".sactivity.create.CreateSecondTypeActivity"/>
+        <activity android:name=".sactivity.create.CreateThirdTypeActivity"/>
+        <activity android:name=".sactivity.create.CreateUserActivity"/>
+        <activity android:name=".sactivity.create.CreateProductActivity"/>
+        <activity android:name=".sactivity.create.PictureUploadActivity"/>
+        <activity android:name=".sactivity.create.ChooseUploadActivity"/>
+    </application>
+
+</manifest>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+<EditText
+    android:id="@+id/mobile"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:hint="mobile"/>
+    <EditText
+        android:layout_marginTop="10dp"
+        android:id="@+id/password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="password"/>
+    <EditText
+        android:layout_marginTop="10dp"
+        android:id="@+id/nickname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="nickname"/>
+    <EditText
+        android:layout_marginTop="10dp"
+        android:id="@+id/idcard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="idcard"/>
+    <EditText
+        android:layout_marginTop="10dp"
+        android:id="@+id/truename"
+        android:layout_width="match_parent"
+        android:hint="truename"
+        android:layout_height="wrap_content" />
+    <Button
+        android:layout_marginTop="10dp"
+        android:id="@+id/commit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="commit"/>
+</LinearLayout>

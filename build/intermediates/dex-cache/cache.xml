@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="/home/paichufang/ydxProject/MyApp/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.1.0/classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="ddde541c289c8b816a8f8fd6c325d80788c522a6">
+        <dex dex="/home/paichufang/ydxProject/MyApp/app/build/intermediates/pre-dexed/debug/classes-7bbc671a870a83c93f1bfc0065025eb74489616b.jar" />
+    </item>
+    <item
+        jar="/home/paichufang/ydxProject/MyApp/app/libs/avoscloud-statistics-v3.10.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="608f5f128e0f1d19b105a994c19e3c6e2de8026e">
+        <dex dex="/home/paichufang/ydxProject/MyApp/app/build/intermediates/pre-dexed/debug/avoscloud-statistics-v3.10-9f7405ae66dae6d1faa513f2aba11f4501ccb61f.jar" />
+    </item>
+    <item
+        jar="/home/paichufang/ydxProject/MyApp/app/libs/Java-WebSocket-1.2.0-leancloud.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="221fb6750fcf164a85a98bbbafe0879e18868562">
+        <dex dex="/home/paichufang/ydxProject/MyApp/app/build/intermediates/pre-dexed/debug/Java-WebSocket-1.2.0-leancloud-9429d29f4d67f00fa396d365b66b355f3dc60266.jar" />
+    </item>
+    <item
+        jar="/home/paichufang/ydxProject/MyApp/app/libs/weibo.sdk.android.sso.3.0.1-leancloud.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="119e2034c8db764d5742ec1cdbcc4aa6bdf85e7a">
+        <dex dex="/home/paichufang/ydxProject/MyApp/app/build/intermediates/pre-dexed/debug/weibo.sdk.android.sso.3.0.1-leancloud-86e29fc6b4e97ad71cdaf50de0a393b25fb139c0.jar" />
+    </item>
+    <item
+        jar="/home/paichufang/Android/Sdk/extras/android/m2repository/com/android/support/support-annotations/23.1.0/support-annotations-23.1.0.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="92e3fc113ec3ee36b64603a38857b95700025633">
+        <dex dex="/home/paichufang/ydxProject/MyApp/app/build/intermediates/pre-dexed/debug/support-annotations-23.1.0-20c2cfbcb7e3b76fb4f1854542c724002fbec154.jar" />
+    </item>
+    <item
+        jar="/home/paichufang/ydxProject/MyApp/app/libs/avoscloud-sdk-v3.10.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="0f5cd8e0ad6c0e37929ac1185e96ea46c87ff2a3">
+        <dex dex="/home/paichufang/ydxProject/MyApp/app/build/intermediates/pre-dexed/debug/avoscloud-sdk-v3.10-eb92a6bce0c9835b7c44a043465c812672d0f091.jar" />
+    </item>
+    <item
+        jar="/home/paichufang/ydxProject/MyApp/app/libs/okhttp-2.5.0.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="4de2b4ed3445c37ec1720a7d214712e845a24636">
+        <dex dex="/home/paichufang/ydxProject/MyApp/app/build/intermediates/pre-dexed/debug/okhttp-2.5.0-275746f994b4f03a02f03a97a7b344670f5daa8f.jar" />
+    </item>
+    <item
+        jar="/home/paichufang/ydxProject/MyApp/app/libs/fastjson.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="94d4ebd4acdaf01d7445435382eea2d2d38e7534">
+        <dex dex="/home/paichufang/ydxProject/MyApp/app/build/intermediates/pre-dexed/debug/fastjson-f96ccdb6e6cee73b44909debc7beef70cdc48410.jar" />
+    </item>
+    <item
+        jar="/home/paichufang/ydxProject/MyApp/app/libs/qq.sdk.1.6.1.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="896145203364b9e1d055cb81ac127bab139ad91d">
+        <dex dex="/home/paichufang/ydxProject/MyApp/app/build/intermediates/pre-dexed/debug/qq.sdk.1.6.1-768c9c60c5250bab6a0dd3d50bf08edee8678fc2.jar" />
+    </item>
+    <item
+        jar="/home/paichufang/ydxProject/MyApp/app/libs/okio-1.6.0.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="98476622f10715998eacf9240d6b479f12c66143">
+        <dex dex="/home/paichufang/ydxProject/MyApp/app/build/intermediates/pre-dexed/debug/okio-1.6.0-cd775e59494662549ccde5b07bd60f203b2c3fbb.jar" />
+    </item>
+    <item
+        jar="/home/paichufang/ydxProject/MyApp/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.1.0/libs/internal_impl-23.1.0.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="8716243bf04bae8d6c9ca94d27b9a9be7236f0a3">
+        <dex dex="/home/paichufang/ydxProject/MyApp/app/build/intermediates/pre-dexed/debug/internal_impl-23.1.0-f1d7ba2f8d22d03e38df78036955bba8920ce24c.jar" />
+    </item>
+    <item
+        jar="/home/paichufang/ydxProject/MyApp/app/libs/httpmime-4.2.4.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="dba4d4d224e2ca872af5be8d2992777583145478">
+        <dex dex="/home/paichufang/ydxProject/MyApp/app/build/intermediates/pre-dexed/debug/httpmime-4.2.4-4e289abc73ce890291c3c62051f07b8d1d0bddd6.jar" />
+    </item>
+    <item
+        jar="/home/paichufang/ydxProject/MyApp/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.0/classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="57ae0d750ff83f0c738d21720224ac7ea866a094">
+        <dex dex="/home/paichufang/ydxProject/MyApp/app/build/intermediates/pre-dexed/debug/classes-77f554adc7998dd7110bd91bfb775b6d9f433c41.jar" />
+    </item>
+    <item
+        jar="/home/paichufang/ydxProject/MyApp/app/libs/avoscloud-push-v3.10.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="f064efad5a58a3101ab6f722fc5956b4341e96af">
+        <dex dex="/home/paichufang/ydxProject/MyApp/app/build/intermediates/pre-dexed/debug/avoscloud-push-v3.10-0de82ed46a5417ed3022b11cce9b26e4132937fe.jar" />
+    </item>
+
+</items>
