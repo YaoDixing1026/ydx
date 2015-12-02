@@ -10,15 +10,15 @@ import com.avos.avoscloud.AVObject;
 public class SecondType  extends AVObject{
     private String secondTypeId;
     private String secondTypeName;
-    private FirstType firstType;
+    private String firstTypeId;
 
     public SecondType() {
     }
 
-    public SecondType(String secondTypeId, String secondTypeName, FirstType firstType) {
+    public SecondType(String secondTypeId, String secondTypeName, String firstTypeId) {
         this.secondTypeId = secondTypeId;
         this.secondTypeName = secondTypeName;
-        this.firstType = firstType;
+        this.firstTypeId = firstTypeId;
     }
 
     public String getSecondTypeId() {
@@ -37,11 +37,11 @@ public class SecondType  extends AVObject{
         this.secondTypeName = secondTypeName;
     }
 
-    public FirstType getFirstType() {
-        return firstType;
+    public String getFirstTypeId() {
+        return firstTypeId;
     }
 
-    public void setFirstType(FirstType firstType) {
-        this.firstType = firstType;
+    public void setFirstTypeId(String firstTypeId) {
+        this.firstTypeId = firstTypeId;
     }
 }

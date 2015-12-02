@@ -8,7 +8,7 @@ import com.avos.avoscloud.AVObject;
  */
 @AVClassName("MyAccount")
 public class MyAccount extends AVObject{
-    private MyUser myUser;
+    private String myUserId;
     private int accountPassword;
     private int bankNumber;
     private String accountId;

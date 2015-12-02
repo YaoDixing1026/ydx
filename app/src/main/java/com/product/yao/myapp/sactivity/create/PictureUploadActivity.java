@@ -41,20 +41,13 @@ public class PictureUploadActivity extends BaseActivity {
     static final int CAPTURE_REQUEST_CODE = 100;
     static final int PICK_REQUEST_CODE = 200;
 
-    private List<String> fileNameInService = new ArrayList<String>();
     private Uri currentPhotoUri;
     private int action;
-    private File file = null;
-    private File pic = null;
-    private String productName;
-    private String productId;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sactivity_loading);
         action = getIntent().getIntExtra("action", CAPTURE_REQUEST_CODE);
-        productId=getIntent().getStringExtra("productId");
-        productName=getIntent().getStringExtra("productName");
         if (action == PICK_REQUEST_CODE) {
             //打开照片选择页面，选择完之后带参数打开本页面
             Intent intent = new Intent(Intent.ACTION_PICK);
@@ -78,6 +71,8 @@ public class PictureUploadActivity extends BaseActivity {
                 LinearLayout loading = (LinearLayout) findViewById(R.id.progressBar);
                 loading.setVisibility(View.VISIBLE);
                 String s=currentPhotoUri.getPath();
+                ToastUtil.showshort(PictureUploadActivity.this, "success");
+                setUpInfo(s);
 
             } else if (requestCode == PICK_REQUEST_CODE) {
 //                Toast.makeText(getApplicationContext(), R.string.image_please_wait, Toast.LENGTH_LONG).show();
@@ -99,14 +94,8 @@ public class PictureUploadActivity extends BaseActivity {
                     cursor.moveToFirst();
                     String s=cursor.getString(columnIndex);
 
-                    ToastUtil.showshort(PictureUploadActivity.this,"success");
-                    Intent processingActivity = new Intent(getApplicationContext(),
-                            ChooseUploadActivity.class)
-                            .putExtra("path", s)
-                            .putExtra("productName", productName)
-                            .putExtra("productId",productId);
-                    processingActivity.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(processingActivity);
+                    ToastUtil.showshort(PictureUploadActivity.this, "success");
+                    setUpInfo(s);
 //                    upload2Server(s);
                     cursor.close();
                 }
@@ -133,5 +122,12 @@ public class PictureUploadActivity extends BaseActivity {
 
     }
 
+    private void setUpInfo(String path){
+        Intent intent=new Intent();
+        intent.putExtra("path", path);
+        intent.setClassName(this.getPackageName(),getIntent().getStringExtra("className"));
+        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+    }
 }
 

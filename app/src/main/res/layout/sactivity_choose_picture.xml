@@ -4,11 +4,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
     <Button
-        android:id="@+id/choose_product"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="选择产品"/>
-    <Button
         android:id="@+id/upload_pai"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

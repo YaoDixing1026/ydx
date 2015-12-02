@@ -27,7 +27,9 @@ import com.product.yao.myapp.utils.WHUtil;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Hashtable;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by paichufang on 15-11-7.
@@ -35,17 +37,15 @@ import java.util.List;
 public class ProductRightFragment extends BaseFragment{
 
     private String LeftClickTypeId;
+    private Map<String,List<AVObject>> fToS;
+    private Map<String,List<AVObject>> sToT;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         LeftClickTypeId= this.getArguments().getString("clickTypeId");
-
-        needSecondType=new ArrayList<>();
-        needThirdType=new ArrayList<>();
-        needProduct=new ArrayList<>();
-
+        fToS=new Hashtable<>();
+        sToT=new Hashtable<>();
         getSecondTypebyFirstTypeId();
-        getThirdTypebySecondTypeId();
     }
 
 
@@ -60,7 +60,7 @@ public class ProductRightFragment extends BaseFragment{
     @Override
     public void onResume() {
         super.onResume();
-        initView();
+
     }
 
     @Override
@@ -68,76 +68,49 @@ public class ProductRightFragment extends BaseFragment{
         super.onDestroyView();
     }
 
+
     /**
      * 通过左侧TypeId取数据
      */
-    private void getSecondTypebyFirstTypeId(){
-        AVQuery.doCloudQueryInBackground("select * from SecondType", new CloudQueryCallback<AVCloudQueryResult>() {
+    private void getSecondTypebyFirstTypeId()
+    {
+        AVQuery.doCloudQueryInBackground("select * from SecondType where firstTypeId='" +
+                LeftClickTypeId + "'", new CloudQueryCallback<AVCloudQueryResult>()
+        {
             @Override
-            public void done(AVCloudQueryResult avCloudQueryResult, AVException e) {
-                if(avCloudQueryResult!=null) {
+            public void done(AVCloudQueryResult avCloudQueryResult, AVException e)
+            {
+                if (avCloudQueryResult != null)
+                {
                     List<AVObject> avObjects = (List<AVObject>) avCloudQueryResult.getResults();
-                    for (AVObject avObject : avObjects) {
-                        String fistTypeJson = avObject.get("firstType").toString();
-                        try {
-                            JSONObject jsonObject = new JSONObject(fistTypeJson);
-                            String id = jsonObject.getString("firstTypeId");
-                            if (id != null && LeftClickTypeId != null) {
-                                if (id.equals(LeftClickTypeId)) {
-                                    Message message = new Message();
-                                    message.what = 01;
-                                    message.obj = avObject;
-                                    handler.sendMessage(message);
+                    fToS.put(LeftClickTypeId, avObjects);
+                    for(final AVObject secondType :fToS.get(LeftClickTypeId))
+                    {
+                        AVQuery.doCloudQueryInBackground("select * from ThirdType where " +
+                                "firstTypeId='" + LeftClickTypeId +
+                                "' and secondTypeId='" + secondType.getString("secondTypeId") + "'", new CloudQueryCallback<AVCloudQueryResult>()
+                        {
+                            @Override
+                            public void done(AVCloudQueryResult avCloudQueryResult, AVException e)
+                            {
+                                if(avCloudQueryResult!=null)
+                                {
+                                    List<AVObject> avObjects = (List<AVObject>) avCloudQueryResult.getResults();
+
+                                    sToT.put(secondType.getString("secondTypeId"), avObjects);
                                 }
+                                handler.sendEmptyMessage(0x11);
                             }
-
-                        } catch (Exception e1) {
-
-                        }
-                    }
-                }
-
-            }
-        });
-    }
-
-    /**
-     * 取thirdType
-     */
-    private void getThirdTypebySecondTypeId(){
-        AVQuery.doCloudQueryInBackground("select * from ThirdType", new CloudQueryCallback<AVCloudQueryResult>() {
-            @Override
-            public void done(AVCloudQueryResult avCloudQueryResult, AVException e) {
-                if (avCloudQueryResult != null) {
-                    List<AVObject> avObjects = (List<AVObject>) avCloudQueryResult.getResults();
-                    if (avObjects != null) {
-                        for (AVObject avObject : avObjects) {
-                            String secondTypeJson = avObject.get("secondType").toString();
-                            try {
-                                JSONObject jsonObject1 = new JSONObject(secondTypeJson);
-                                String secondId = jsonObject1.getString("secondTypeId");
-
-                                if (needSecondType != null) {
-                                    for (AVObject object : needSecondType) {
-                                        if (object.getString("secondTypeId").equals(secondId)) {
-                                            Message message = new Message();
-                                            message.what = 02;
-                                            message.obj = avObject;
-                                            handler.sendMessage(message);
-                                        }
-                                    }
-                                }
-
-                            } catch (Exception e1) {
-
-                            }
-                        }
+                        });
                     }
 
                 }
             }
         });
     }
+
+
+
 
     private void initView(){
         content=(LinearLayout)view.findViewById(R.id.item);
@@ -145,20 +118,69 @@ public class ProductRightFragment extends BaseFragment{
        new Thread(new Runnable() {
            @Override
            public void run() {
-               for(int i=0;i<3;i++){
+               for(int i=0;i<fToS.get(LeftClickTypeId).size();i++){
+                   AVObject secondType=fToS.get(LeftClickTypeId).get(i);
+                   String secondId=secondType.getString("secondTypeId");
                    TypeFragmentRightContent tfrc=new TypeFragmentRightContent(getActivity());
-                   tfrc.setLeftText("aa", 0, 0, 0);
+                   tfrc.setLeftText(secondType.getString("secondTypeName"), 0, 0, 0);
                    tfrc.setRightText("bb", 0, 0, 0);
-                   for(int j=0;j<3;j++){
-                       TypeFragmentOneLayoutH hLayout=new TypeFragmentOneLayoutH(getActivity());
-                       hLayout.setLayoutPadding(0,WHUtil.dip2px(getActivity(),5),0,0);
-                       for (int k=0;k<3;k++){
-                           ActivityBottomItemView v=new ActivityBottomItemView(getActivity());
+                   int count=0;
+                   int size=sToT.get(secondId).size();
+                   int mod=size %3;
+                   if(size>=3) {
+                       for (int j = 0; j < size / 3; j++) {
+
+                           TypeFragmentOneLayoutH hLayout = new TypeFragmentOneLayoutH(getActivity());
+                           hLayout.setLayoutPadding(0, WHUtil.dip2px(getActivity(), 5), 0, 0);
+                           for (int k = 0; k < 3; k++) {
+                               if (count < 12&& count<size) {
+                                   AVObject thirdType = sToT.get(secondId).get(count);
+                                   ActivityBottomItemView v = new ActivityBottomItemView(getActivity());
+                                   v.setFatherGravity(Gravity.CENTER);
+                                   v.setImageView(R.mipmap.tab_home);
+                                   v.setText(thirdType.getString("thirdTypeName"), 0, 0, 0);
+                                   v.setFatherWH(oneWidth, WHUtil.dip2px(getActivity(), 40));
+                                   hLayout.addItem(v);
+                                   count++;
+                               } else {
+                                   break;
+                               }
+                           }
+                           tfrc.addContent(hLayout);
+
+                       }
+                   }
+
+                   if(size>3&&mod!=0){
+                       TypeFragmentOneLayoutH hLayout = new TypeFragmentOneLayoutH(getActivity());
+                       hLayout.setLayoutPadding(0, WHUtil.dip2px(getActivity(), 5), 0, 0);
+                       for (int j = 0; j < mod ; j++) {
+                           AVObject thirdType = sToT.get(secondId).get(count);
+                           ActivityBottomItemView v = new ActivityBottomItemView(getActivity());
                            v.setFatherGravity(Gravity.CENTER);
                            v.setImageView(R.mipmap.tab_home);
-                           v.setText("aaa", 0, 0, 0);
-                           v.setFatherWH(oneWidth, WHUtil.dip2px(getActivity(),40));
+                           v.setText(thirdType.getString("thirdTypeName"), 0, 0, 0);
+                           v.setFatherWH(oneWidth, WHUtil.dip2px(getActivity(), 40));
                            hLayout.addItem(v);
+
+                           count++;
+                       }
+                       tfrc.addContent(hLayout);
+                   }
+
+                   if(size<3) {
+                       TypeFragmentOneLayoutH hLayout = new TypeFragmentOneLayoutH(getActivity());
+                       hLayout.setLayoutPadding(0, WHUtil.dip2px(getActivity(), 5), 0, 0);
+                       for (int j = 0; j < size ; j++) {
+                                   AVObject thirdType = sToT.get(secondId).get(j);
+                                   ActivityBottomItemView v = new ActivityBottomItemView(getActivity());
+                                   v.setFatherGravity(Gravity.CENTER);
+                                   v.setImageView(R.mipmap.tab_home);
+                                   v.setText(thirdType.getString("thirdTypeName"), 0, 0, 0);
+                                   v.setFatherWH(oneWidth, WHUtil.dip2px(getActivity(), 40));
+                                   hLayout.addItem(v);
+
+
                        }
                        tfrc.addContent(hLayout);
                    }
@@ -171,30 +193,24 @@ public class ProductRightFragment extends BaseFragment{
        }).start();
 
     }
-    private List<AVObject> needSecondType;
-    private List<AVObject> needThirdType;
-    private List<AVObject> needProduct;
+    int count=0;
     Handler handler=new Handler(){
         @Override
         public void handleMessage(Message msg) {
             switch (msg.what){
-                case 0x123:
-                    content.addView((TypeFragmentRightContent)msg.obj);
-                    break;
-                //get a secondType Avobject
-                case 01:
-                    needSecondType.add((AVObject)msg.obj);
-                    Log.i("second",((AVObject) msg.obj).getString("secondTypeId"));
-                    break;
-                //get a ThirdType Avobject
-                case 02:
-                    needThirdType.add((AVObject)msg.obj);
-                    break;
-                //get a product Avobject
-                case 03:
+                case 0x11:
+                    count++;
+                    if(count==fToS.get(LeftClickTypeId).size()) {
+                        initView();
+                    }
 
+                    break;
+                case 0x123:
+                   View  view= (TypeFragmentRightContent)msg.obj;
+                    content.addView(view);
                     break;
             }
         }
     };
+
 }

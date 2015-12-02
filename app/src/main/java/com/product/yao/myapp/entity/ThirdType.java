@@ -1,6 +1,7 @@
 package com.product.yao.myapp.entity;
 
 import com.avos.avoscloud.AVClassName;
+import com.avos.avoscloud.AVFile;
 import com.avos.avoscloud.AVObject;
 
 /**
@@ -10,17 +11,11 @@ import com.avos.avoscloud.AVObject;
 public class ThirdType extends AVObject{
     private String thirdTypeId;
     private String thirdTypeName;
-    private FirstType firstType;
-    private SecondType secondType;
+    private String firstTypeId;
+    private String secondTypeId;
+    private AVFile photo;
 
     public ThirdType(){}
-
-    public ThirdType(String thirdTypeName, String thirdTypeId, FirstType firstType, SecondType secondType) {
-        this.thirdTypeName = thirdTypeName;
-        this.thirdTypeId = thirdTypeId;
-        this.firstType = firstType;
-        this.secondType = secondType;
-    }
 
     public String getThirdTypeId() {
         return thirdTypeId;
@@ -38,19 +33,27 @@ public class ThirdType extends AVObject{
         this.thirdTypeName = thirdTypeName;
     }
 
-    public FirstType getFirstType() {
-        return firstType;
+    public String getFirstTypeId() {
+        return firstTypeId;
     }
 
-    public void setFirstType(FirstType firstType) {
-        this.firstType = firstType;
+    public void setFirstTypeId(String firstTypeId) {
+        this.firstTypeId = firstTypeId;
     }
 
-    public SecondType getSecondType() {
-        return secondType;
+    public String getSecondTypeId() {
+        return secondTypeId;
     }
 
-    public void setSecondType(SecondType secondType) {
-        this.secondType = secondType;
+    public void setSecondTypeId(String secondTypeId) {
+        this.secondTypeId = secondTypeId;
+    }
+
+    public AVFile getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(AVFile photo) {
+        this.photo = photo;
     }
 }

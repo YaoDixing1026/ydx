@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 
 import com.avos.avoscloud.AVCloudQueryResult;
@@ -25,10 +26,12 @@ import java.util.UUID;
 public class CreateSecondTypeActivity extends BaseActivity{
 
     private SecondType secondtype;
+    private Button firstButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sactivity_create_second_type);
+        firstButton=(Button)findViewById(R.id.choose_first_type_btn);
         secondtype=new SecondType();
         getFirstType();
         //点击commit
@@ -42,7 +45,7 @@ public class CreateSecondTypeActivity extends BaseActivity{
                 if (name == null || name.equals("")) {
                     ToastUtil.showshort(CreateSecondTypeActivity.this, "请输入SecondType");
                     return;
-                } else if (secondtype.get("firstType") == null) {
+                } else if (secondtype.get("firstTypeId") == null) {
                     ToastUtil.showshort(CreateSecondTypeActivity.this, "请选择FirstType");
                     return;
                 } else {
@@ -53,9 +56,10 @@ public class CreateSecondTypeActivity extends BaseActivity{
                             if(e==null){
                                 ToastUtil.showshort(CreateSecondTypeActivity.this,"success");
                             }else {
-                                ToastUtil.showshort(CreateSecondTypeActivity.this,e.getMessage());
+                                ToastUtil.showshort(CreateSecondTypeActivity.this, e.getMessage());
                             }
-
+                            secondtype=new SecondType();
+                            secondtype.put("firstTypeId",firstTypeId);
                         }
                     });
                 }
@@ -85,12 +89,15 @@ public class CreateSecondTypeActivity extends BaseActivity{
             }
         });
     }
+    String firstTypeId;
   Handler handler=new Handler(){
     @Override
     public void handleMessage(Message msg) {
         switch (msg.what){
             case 0x123:
-                secondtype.put("firstType",result.getResults().get(Integer.valueOf(msg.obj.toString())));
+                firstTypeId=result.getResults().get(Integer.valueOf(msg.obj.toString())).getString("firstTypeId");
+                secondtype.put("firstTypeId",result.getResults().get(Integer.valueOf(msg.obj.toString())).getString("firstTypeId"));
+                firstButton.setText(result.getResults().get(Integer.valueOf(msg.obj.toString())).getString("firstTypeName"));
                 break;
         }
     }

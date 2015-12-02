@@ -25,7 +25,6 @@ public class BaseApplication extends Application {
         AVObject.registerSubclass(MyRole.class);
         AVObject.registerSubclass(MyUser.class);
         AVObject.registerSubclass(MyAccount.class);
-        AVObject.registerSubclass(ProductPhoto.class);
         AVObject.registerSubclass(Product.class);
         AVOSCloud.initialize(this, "1GKsLR64N3dlBn7w5jrc6QtU", "cjfo17K3iMmcr4iMMrsjyPwb");
     }

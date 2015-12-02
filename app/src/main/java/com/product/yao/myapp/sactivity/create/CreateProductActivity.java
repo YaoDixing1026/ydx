@@ -122,7 +122,8 @@ public class CreateProductActivity extends BaseActivity implements View.OnClickL
                                        .startActivity(new Intent(CreateProductActivity
                                                .this, ChooseUploadActivity
                                                .class)
-                                               .putExtra("productId",id));
+                                               .putExtra("id",id)
+                                       .putExtra("photoType","product"));
                                product=new Product();
                            }else {
                                ToastUtil.showshort(CreateProductActivity.this,e.getMessage());
@@ -160,17 +161,14 @@ public class CreateProductActivity extends BaseActivity implements View.OnClickL
     private AVCloudQueryResult resultSecondType;
     private String []itemsSecondType;
     public void getSecondType(){
-        AVQuery.doCloudQueryInBackground("select * from SecondType", new CloudQueryCallback<AVCloudQueryResult>() {
+        AVQuery.doCloudQueryInBackground("select * from SecondType where firstTypeId='"+firstId+"'", new CloudQueryCallback<AVCloudQueryResult>() {
             @Override
             public void done(AVCloudQueryResult avCloudQueryResult, AVException e) {
                 if (avCloudQueryResult != null && avCloudQueryResult.getResults().size() > 0) {
                     resultSecondType = avCloudQueryResult;
                     List<String> list=new ArrayList<String>();
                     for(int j=0;j<avCloudQueryResult.getResults().size();j++){
-                       AVObject avObject=(AVObject) avCloudQueryResult.getResults().get(j).get("firstType");
-                        if(avObject.getObjectId().equals(firstType.getObjectId())){
                             list.add(avCloudQueryResult.getResults().get(j).getString("secondTypeName"));
-                        }
                     }
 
                     itemsSecondType = new String[list.size()];
@@ -187,23 +185,28 @@ public class CreateProductActivity extends BaseActivity implements View.OnClickL
     private AVCloudQueryResult resultThirdType;
     private String []itemsThirdType;
     public void getThirdType(){
-        AVQuery.doCloudQueryInBackground("select * from ThirdType", new CloudQueryCallback<AVCloudQueryResult>() {
+        AVQuery.doCloudQueryInBackground("select * from ThirdType where firstTypeId='"
+                        +firstId+"' and secondTypeId='"
+                        +secondId+"'",
+                new CloudQueryCallback<AVCloudQueryResult>() {
             @Override
             public void done(AVCloudQueryResult avCloudQueryResult, AVException e) {
                 if (avCloudQueryResult != null && avCloudQueryResult.getResults().size() > 0) {
                     resultThirdType = avCloudQueryResult;
                     List<String> list=new ArrayList<String>();
                     for(int j=0;j<avCloudQueryResult.getResults().size();j++){
-                        AVObject avObject=(AVObject) avCloudQueryResult.getResults().get(j).get("secondType");
-                        if(avObject.getObjectId().equals(secondType.getObjectId())){
                             list.add(avCloudQueryResult.getResults().get(j).getString("thirdTypeName"));
-                        }
                     }
 
                     itemsThirdType = new String[list.size()];
                     for (int i = 0; i < list.size(); i++) {
                         itemsThirdType[i] = list.get(i);
                     }
+                }
+                else {
+                    itemsThirdType = new String[0];
+                    thirdTypeBtn.setText("");
+                    product.put("thirdTypeId",null);
                 }
             }
         });
@@ -276,21 +279,23 @@ public class CreateProductActivity extends BaseActivity implements View.OnClickL
         product.put("productDate",productDate.getText().toString());
         //product life
         product.put("productLife",productLife.getText().toString());
-        if(product.get("firstType")==null){
+        if(product.get("firstTypeId")==null){
             ToastUtil.showshort(this,"请选择一级分类");
             return false;
         }
-        if(product.get("secondType")==null){
+        if(product.get("secondTypeId")==null){
             ToastUtil.showshort(this,"请选择二级分类");
             return false;
         }
-        if(product.get("thirdType")==null){
+        if(product.get("thirdTypeId")==null){
             ToastUtil.showshort(this,"请选择三级分类");
             return false;
         }
 
         return true;
     }
+    private String firstId;
+    private String secondId;
     Handler handler=new Handler(){
         @Override
         public void handleMessage(Message msg) {
@@ -298,19 +303,21 @@ public class CreateProductActivity extends BaseActivity implements View.OnClickL
                 case 0x123:
                     firstTypeBtn.setText(itemsFirstType[Integer.valueOf(msg.obj+"")]);
                     firstType=resultFirstType.getResults().get(Integer.valueOf(msg.obj+""));
-                    product.put("firstType",firstType);
+                    product.put("firstTypeId",firstType.getString("firstTypeId"));
+                    firstId=firstType.getString("firstTypeId");
                     getSecondType();
                     break;
                 case 0x124:
                     secondTypeBtn.setText(itemsSecondType[Integer.valueOf(msg.obj + "")]);
                     secondType=resultSecondType.getResults().get(Integer.valueOf(msg.obj+""));
-                    product.put("secondType",secondType);
+                    product.put("secondTypeId",secondType.getString("secondTypeId"));
+                    secondId=secondType.getString("secondTypeId");
                     getThirdType();
                     break;
                 case 0x125:
                     thirdTypeBtn.setText(itemsThirdType[Integer.valueOf(msg.obj+"")]);
                     thirdType=resultThirdType.getResults().get(Integer.valueOf(msg.obj+""));
-                    product.put("thirdType",thirdType);
+                    product.put("thirdTypeId",thirdType.getString("thirdTypeId"));
                     break;
                 case 0x126:
                     product.put("productStatus", (boolean)msg.obj);
