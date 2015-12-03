@@ -12,6 +12,8 @@ import com.product.yao.myapp.entity.ProductPhoto;
 import com.product.yao.myapp.entity.SecondType;
 import com.product.yao.myapp.entity.ThirdType;
 
+import in.srain.cube.Cube;
+
 /**
  * Created by paichufang on 15-11-2.
  */
@@ -27,5 +29,9 @@ public class BaseApplication extends Application {
         AVObject.registerSubclass(MyAccount.class);
         AVObject.registerSubclass(Product.class);
         AVOSCloud.initialize(this, "1GKsLR64N3dlBn7w5jrc6QtU", "cjfo17K3iMmcr4iMMrsjyPwb");
+
+        Cube.onCreate(this);
+        
     }
+
 }

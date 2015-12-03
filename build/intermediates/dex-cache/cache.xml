@@ -44,11 +44,25 @@
         <dex dex="/home/paichufang/ydxProject/MyApp/app/build/intermediates/pre-dexed/debug/avoscloud-sdk-v3.10-eb92a6bce0c9835b7c44a043465c812672d0f091.jar" />
     </item>
     <item
+        jar="/home/paichufang/ydxProject/MyApp/app/build/intermediates/exploded-aar/in.srain.cube/cube-sdk/1.0.44/classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="ab3e30bc50e6b7f859b4971bfc897cd107a7b6c5">
+        <dex dex="/home/paichufang/ydxProject/MyApp/app/build/intermediates/pre-dexed/debug/classes-a55b3bf3a93abb15b06f1c6126b3cf9c6aba5906.jar" />
+    </item>
+    <item
         jar="/home/paichufang/ydxProject/MyApp/app/libs/okhttp-2.5.0.jar"
         jumboMode="false"
         revision="23.0.1"
         sha1="4de2b4ed3445c37ec1720a7d214712e845a24636">
         <dex dex="/home/paichufang/ydxProject/MyApp/app/build/intermediates/pre-dexed/debug/okhttp-2.5.0-275746f994b4f03a02f03a97a7b344670f5daa8f.jar" />
+    </item>
+    <item
+        jar="/home/paichufang/.gradle/caches/modules-2/files-2.1/in.srain.cube/clog/1.0.2/4b857e5d62a7243e74fd0307639fff5a54f8f030/clog-1.0.2.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="4b857e5d62a7243e74fd0307639fff5a54f8f030">
+        <dex dex="/home/paichufang/ydxProject/MyApp/app/build/intermediates/pre-dexed/debug/clog-1.0.2-d1267f2a1387b092b3592e907ed89d85c114b638.jar" />
     </item>
     <item
         jar="/home/paichufang/ydxProject/MyApp/app/libs/fastjson.jar"

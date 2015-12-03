@@ -16,6 +16,9 @@ import com.product.yao.myapp.myview.ActivityBottomItemView;
 import com.product.yao.myapp.myview.TitleBar;
 import com.product.yao.myapp.utils.WHUtil;
 
+import in.srain.cube.image.ImageLoader;
+import in.srain.cube.image.ImageLoaderFactory;
+
 
 public class MainActivity extends BaseActivity {
     private LinearLayout layout;
@@ -23,12 +26,14 @@ public class MainActivity extends BaseActivity {
     private int deviceHeight;
     private TitleBar titleBar;
     private final static String [] bottomText={"首页","分类","购物车","我的"};
+    private ImageLoader imageLoader;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        imageLoader= ImageLoaderFactory.create(this);
         initView();
+
     }
 
     private void initView(){
@@ -45,10 +50,11 @@ public class MainActivity extends BaseActivity {
         //底部导航
         for(int i=0;i<bottomText.length;i++) {
             ActivityBottomItemView view = new ActivityBottomItemView(this);
-            view.setImageView(R.mipmap.tab_home);
+            view.setImageViewByUrl(imageLoader, "http://pic2.ooopic.com/01/28/96/31b1OOOPIC95.jpg");
             view.setText(bottomText[i], 0, 0, 0);
             view.setFatherGravity(Gravity.CENTER);
-            view.setFatherWH(deviceWidth / 4, deviceHeight / 12);
+            view.setFatherWH(deviceWidth / 4, deviceWidth / 6);
+            view.setImageViewWH(deviceWidth / 6 - WHUtil.dip2px(this, 20), deviceWidth / 6 - WHUtil.dip2px(this, 20));
             layout.addView(view);
             if(i==0){
                 view.setOnClickListener(new View.OnClickListener() {

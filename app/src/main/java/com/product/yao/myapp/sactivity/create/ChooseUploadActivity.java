@@ -23,6 +23,7 @@ import com.product.yao.myapp.entity.ThirdType;
 import com.product.yao.myapp.service.c.Create;
 import com.product.yao.myapp.utils.MyDialog;
 import com.product.yao.myapp.utils.ToastUtil;
+import com.product.yao.myapp.utils.WHUtil;
 
 import java.util.HashMap;
 import java.util.Hashtable;
@@ -43,8 +44,13 @@ public class ChooseUploadActivity extends BaseActivity{
         final String className=this.getPackageName()+"."+this.getLocalClassName();
         id=getIntent().getStringExtra("id");
         photoType=getIntent().getStringExtra("photoType");
-        getProductById();
-        getThirdType();
+        if(photoType!=null) {
+            if (photoType.equals("product")) {
+                getProductById();
+            }else {
+                getThirdType();
+            }
+        }
         findViewById(R.id.upload_choose).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -185,12 +191,16 @@ public class ChooseUploadActivity extends BaseActivity{
                     uploadPhotoDone=true;
                     if(getThirdObj&&uploadPhotoDone) {
                         AVFile avFile = (AVFile) msg.obj;
-                        thirdObject.put("photo", avFile);
+                     String url=   avFile.getThumbnailUrl(
+                                false,
+                                WHUtil.getDeviceScreenWidth(ChooseUploadActivity.this)*1/4-WHUtil.dip2px(ChooseUploadActivity.this,20),
+                                WHUtil.getDeviceScreenWidth(ChooseUploadActivity.this)*1/4-WHUtil.dip2px(ChooseUploadActivity.this,20));
+                        thirdObject.put("photoUrl", url);
                         thirdObject.saveInBackground(new SaveCallback() {
                             @Override
                             public void done(AVException e) {
                                 if (e == null) {
-                                    ToastUtil.showshort(ChooseUploadActivity.this,"success");
+                                    ToastUtil.showshort(ChooseUploadActivity.this, "success");
                                 } else {
                                     ToastUtil.showshort(ChooseUploadActivity.this, e.getMessage());
                                 }

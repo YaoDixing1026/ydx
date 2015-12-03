@@ -92,7 +92,9 @@
     <orderEntry type="library" exported="" name="weibo.sdk.android.sso.3.0.1-leancloud" level="project" />
     <orderEntry type="library" exported="" name="okhttp-2.5.0" level="project" />
     <orderEntry type="library" exported="" name="avoscloud-push-v3.10" level="project" />
+    <orderEntry type="library" exported="" name="cube-sdk-1.0.44" level="project" />
     <orderEntry type="library" exported="" name="avoscloud-statistics-v3.10" level="project" />
+    <orderEntry type="library" exported="" name="clog-1.0.2" level="project" />
     <orderEntry type="library" exported="" name="avoscloud-sdk-v3.10" level="project" />
     <orderEntry type="library" exported="" name="Java-WebSocket-1.2.0-leancloud" level="project" />
     <orderEntry type="library" exported="" name="support-v4-23.1.0" level="project" />

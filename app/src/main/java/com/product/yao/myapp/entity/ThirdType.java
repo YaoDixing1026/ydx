@@ -13,7 +13,7 @@ public class ThirdType extends AVObject{
     private String thirdTypeName;
     private String firstTypeId;
     private String secondTypeId;
-    private AVFile photo;
+    private String photoUrl;
 
     public ThirdType(){}
 
@@ -49,11 +49,11 @@ public class ThirdType extends AVObject{
         this.secondTypeId = secondTypeId;
     }
 
-    public AVFile getPhoto() {
-        return photo;
+    public String getPhotoUrl() {
+        return photoUrl;
     }
 
-    public void setPhoto(AVFile photo) {
-        this.photo = photo;
+    public void setPhotoUrl(String photoUrl) {
+        this.photoUrl = photoUrl;
     }
 }

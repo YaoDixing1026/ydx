@@ -2,6 +2,7 @@ package com.product.yao.myapp.myview;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -14,6 +15,9 @@ import android.widget.TextView;
 
 import com.product.yao.myapp.R;
 
+import in.srain.cube.image.CubeImageView;
+import in.srain.cube.image.ImageLoader;
+
 /**
  * Created by ydx on 15-11-3.
  */
@@ -23,7 +27,7 @@ public class ActivityBottomItemView extends RelativeLayout {
     private LayoutInflater inflater;
     private RelativeLayout view;
     private LinearLayout father;
-    private ImageView imageView;
+    private CubeImageView imageView;
     private TextView textView;
 
     public ActivityBottomItemView(Context context) {
@@ -47,7 +51,7 @@ public class ActivityBottomItemView extends RelativeLayout {
         inflater=LayoutInflater.from(context);
         view=(RelativeLayout)inflater.inflate(R.layout.activity_bottom_item,this);
         father=(LinearLayout)view.findViewById(R.id.bottom_father);
-        imageView=(ImageView)view.findViewById(R.id.bottom_image);
+        imageView=(CubeImageView)view.findViewById(R.id.bottom_image);
         textView=(TextView)view.findViewById(R.id.bottom_text);
     }
 
@@ -74,7 +78,7 @@ public class ActivityBottomItemView extends RelativeLayout {
     }
     /**
      * 通过id设置图片
-     * @param id resId
+     * @param id drawable
      */
     public void setImageView(int id){
         imageView.setImageResource(id);
@@ -89,7 +93,13 @@ public class ActivityBottomItemView extends RelativeLayout {
         imageView.setImageBitmap(bitmap);
         imageView.setScaleType(scaleType);
     }
-
+    public void setImageViewByUrl(ImageLoader imageLoader,String url){
+        imageView.loadImage(imageLoader, url);
+    }
+    public void setImageViewWH(int width,int height){
+        LinearLayout.LayoutParams params=new LinearLayout.LayoutParams(width,height);
+        imageView.setLayoutParams(params);
+    }
     /**
      * 通过bitmap设置图片
      * @param bitmap bitmap

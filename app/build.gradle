@@ -50,4 +50,7 @@ dependencies {
     //avoscloud-sns 为 LeanCloud 第三方登陆包
     compile files('libs/qq.sdk.1.6.1.jar')
     compile files('libs/weibo.sdk.android.sso.3.0.1-leancloud.jar')
+    //cube
+    compile 'in.srain.cube:cube-sdk:1.0.44@aar'
+    compile 'in.srain.cube:clog:1.0.2'
 }
