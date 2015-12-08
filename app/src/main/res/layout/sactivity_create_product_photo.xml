@@ -4,23 +4,28 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
     <Button
-        android:id="@+id/product_photo_type"
+        android:id="@+id/choose_first"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="图片作用"/>
+        android:text="choose first type"/>
     <Button
-        android:id="@+id/upload_pai"
+        android:id="@+id/choose_second"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="拍照上传"/>
+        android:text="choose second type"/>
     <Button
-        android:id="@+id/upload_choose"
+        android:id="@+id/choose_third"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="选择上传"/>
+        android:text="choose third type"/>
+    <Button
+        android:id="@+id/choose_product"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="choose product"/>
     <Button
         android:id="@+id/commit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="commit"/>
+        android:text="go"/>
 </LinearLayout>

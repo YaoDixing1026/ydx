@@ -12,17 +12,14 @@ import android.widget.EditText;
 import com.avos.avoscloud.AVCloudQueryResult;
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVObject;
-import com.avos.avoscloud.AVQuery;
-import com.avos.avoscloud.CloudQueryCallback;
 import com.avos.avoscloud.SaveCallback;
 import com.product.yao.myapp.R;
 import com.product.yao.myapp.base.BaseActivity;
 import com.product.yao.myapp.entity.Product;
-import com.product.yao.myapp.service.c.Create;
+import com.product.yao.myapp.sactivity.read.ReadProduct;
 import com.product.yao.myapp.utils.MyDialog;
 import com.product.yao.myapp.utils.ToastUtil;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -47,7 +44,7 @@ public class CreateProductActivity extends BaseActivity implements View.OnClickL
     private AVObject firstType;
     private AVObject secondType;
     private AVObject thirdType;
-
+    private ReadProduct readProduct;
     private Product product;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +56,8 @@ public class CreateProductActivity extends BaseActivity implements View.OnClickL
         secondType=new AVObject();
         thirdType=new AVObject();
         initView();
-        getFirstType();
+        readProduct =new ReadProduct(handler);
+        readProduct.getFirstType();
     }
     private void initView(){
         productNameEdit=(EditText)findViewById(R.id.edit_product_name);
@@ -136,81 +134,7 @@ public class CreateProductActivity extends BaseActivity implements View.OnClickL
         }
     }
 
-    /**
-     * 取一级类别
-     */
-    private AVCloudQueryResult resultFirstType;
-    private String []itemsFirstType;
-    public void getFirstType(){
-        AVQuery.doCloudQueryInBackground("select * from FirstType", new CloudQueryCallback<AVCloudQueryResult>() {
-            @Override
-            public void done(AVCloudQueryResult avCloudQueryResult, AVException e) {
-                if (avCloudQueryResult != null && avCloudQueryResult.getResults().size() > 0) {
-                    resultFirstType = avCloudQueryResult;
-                    itemsFirstType = new String[avCloudQueryResult.getResults().size()];
-                    for (int i = 0; i < avCloudQueryResult.getResults().size(); i++) {
-                        itemsFirstType[i] = avCloudQueryResult.getResults().get(i).getString("firstTypeName");
-                    }
-                }
-            }
-        });
-    }
-    /**
-     * 取二级类别
-     */
-    private AVCloudQueryResult resultSecondType;
-    private String []itemsSecondType;
-    public void getSecondType(){
-        AVQuery.doCloudQueryInBackground("select * from SecondType where firstTypeId='"+firstId+"'", new CloudQueryCallback<AVCloudQueryResult>() {
-            @Override
-            public void done(AVCloudQueryResult avCloudQueryResult, AVException e) {
-                if (avCloudQueryResult != null && avCloudQueryResult.getResults().size() > 0) {
-                    resultSecondType = avCloudQueryResult;
-                    List<String> list=new ArrayList<String>();
-                    for(int j=0;j<avCloudQueryResult.getResults().size();j++){
-                            list.add(avCloudQueryResult.getResults().get(j).getString("secondTypeName"));
-                    }
 
-                    itemsSecondType = new String[list.size()];
-                    for (int i = 0; i < list.size(); i++) {
-                        itemsSecondType[i] = list.get(i);
-                    }
-                }
-            }
-        });
-    }
-    /**
-     * 取三级类别
-     */
-    private AVCloudQueryResult resultThirdType;
-    private String []itemsThirdType;
-    public void getThirdType(){
-        AVQuery.doCloudQueryInBackground("select * from ThirdType where firstTypeId='"
-                        +firstId+"' and secondTypeId='"
-                        +secondId+"'",
-                new CloudQueryCallback<AVCloudQueryResult>() {
-            @Override
-            public void done(AVCloudQueryResult avCloudQueryResult, AVException e) {
-                if (avCloudQueryResult != null && avCloudQueryResult.getResults().size() > 0) {
-                    resultThirdType = avCloudQueryResult;
-                    List<String> list=new ArrayList<String>();
-                    for(int j=0;j<avCloudQueryResult.getResults().size();j++){
-                            list.add(avCloudQueryResult.getResults().get(j).getString("thirdTypeName"));
-                    }
-
-                    itemsThirdType = new String[list.size()];
-                    for (int i = 0; i < list.size(); i++) {
-                        itemsThirdType[i] = list.get(i);
-                    }
-                }
-                else {
-                    itemsThirdType = new String[0];
-                    thirdTypeBtn.setText("");
-                    product.put("thirdTypeId",null);
-                }
-            }
-        });
-    }
     private void upLoadPhoto(){
 
     }
@@ -296,23 +220,44 @@ public class CreateProductActivity extends BaseActivity implements View.OnClickL
     }
     private String firstId;
     private String secondId;
+    private String []itemsFirstType;
+    private AVCloudQueryResult resultFirstType;
+    private AVCloudQueryResult resultSecondType;
+    private String []itemsSecondType;
+    private AVCloudQueryResult resultThirdType;
+    private String []itemsThirdType;
     Handler handler=new Handler(){
         @Override
         public void handleMessage(Message msg) {
             switch (msg.what){
+                case 0x41:
+                    List list1=(List)msg.obj;
+                    itemsFirstType=(String[])list1.get(0);
+                    resultFirstType=(AVCloudQueryResult)list1.get(1);
+                    break;
+                case 0x42:
+                    List list2=(List)msg.obj;
+                    itemsSecondType=(String[])list2.get(0);
+                    resultSecondType=(AVCloudQueryResult)list2.get(1);
+                    break;
+                case 0x43:
+                    List list3=(List)msg.obj;
+                    itemsThirdType=(String[])list3.get(0);
+                    resultThirdType=(AVCloudQueryResult)list3.get(1);
+                    break;
                 case 0x123:
                     firstTypeBtn.setText(itemsFirstType[Integer.valueOf(msg.obj+"")]);
                     firstType=resultFirstType.getResults().get(Integer.valueOf(msg.obj+""));
                     product.put("firstTypeId",firstType.getString("firstTypeId"));
                     firstId=firstType.getString("firstTypeId");
-                    getSecondType();
+                    readProduct.getSecondType(firstId);
                     break;
                 case 0x124:
                     secondTypeBtn.setText(itemsSecondType[Integer.valueOf(msg.obj + "")]);
                     secondType=resultSecondType.getResults().get(Integer.valueOf(msg.obj+""));
                     product.put("secondTypeId",secondType.getString("secondTypeId"));
                     secondId=secondType.getString("secondTypeId");
-                    getThirdType();
+                    readProduct.getThirdType(firstId, secondId);
                     break;
                 case 0x125:
                     thirdTypeBtn.setText(itemsThirdType[Integer.valueOf(msg.obj+"")]);

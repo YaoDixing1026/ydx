@@ -20,9 +20,10 @@ public class Product extends AVObject{
     private boolean productStatus;
     private int productCount;
     private String productDescription;
-    private List<String> productPhotoId;
+    private List<String> productPhotoUrl;
     private String productionDate;
     private String productionLife;
+    private String thumbUrl;
 
     public Product() {
     }
@@ -112,11 +113,11 @@ public class Product extends AVObject{
     }
 
     public List<String> getProductPhotoId() {
-        return productPhotoId;
+        return productPhotoUrl;
     }
 
     public void setProductPhotoId(List<String> productPhotoId) {
-        this.productPhotoId = productPhotoId;
+        this.productPhotoUrl = productPhotoId;
     }
 
     public double getProductOnSalePrice() {

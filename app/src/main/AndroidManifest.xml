@@ -40,6 +40,7 @@
         <activity android:name=".sactivity.create.CreateProductActivity"/>
         <activity android:name=".sactivity.create.PictureUploadActivity"/>
         <activity android:name=".sactivity.create.ChooseUploadActivity"/>
+        <activity android:name=".sactivity.create.ProductPhotoUploadActivity"/>
     </application>
 
 </manifest>

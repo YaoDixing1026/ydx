@@ -12,6 +12,7 @@ import com.product.yao.myapp.sactivity.create.CreateProductActivity;
 import com.product.yao.myapp.sactivity.create.CreateSecondTypeActivity;
 import com.product.yao.myapp.sactivity.create.CreateThirdTypeActivity;
 import com.product.yao.myapp.sactivity.create.CreateUserActivity;
+import com.product.yao.myapp.sactivity.create.ProductPhotoUploadActivity;
 
 /**
  * Created by paichufang on 15-11-6.
@@ -61,7 +62,7 @@ public class MainActivity extends BaseActivity {
         findViewById(R.id.up_load_product_photo_btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, ChooseUploadActivity.class));
+                startActivity(new Intent(MainActivity.this, ProductPhotoUploadActivity.class));
             }
         });
     }

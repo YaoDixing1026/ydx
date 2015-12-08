@@ -1,5 +1,7 @@
 package com.product.yao.myapp.fragment.ptf;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -19,10 +21,12 @@ import com.avos.avoscloud.AVQuery;
 import com.avos.avoscloud.CloudQueryCallback;
 import com.product.yao.myapp.R;
 import com.product.yao.myapp.base.BaseFragment;
+import com.product.yao.myapp.cactivity.product.ProductListActivity;
 import com.product.yao.myapp.entity.FirstType;
 import com.product.yao.myapp.myview.ActivityBottomItemView;
 import com.product.yao.myapp.myview.typerightcoutent.TypeFragmentOneLayoutH;
 import com.product.yao.myapp.myview.typerightcoutent.TypeFragmentRightContent;
+import com.product.yao.myapp.sactivity.read.ReadProductList;
 import com.product.yao.myapp.utils.WHUtil;
 
 import org.json.JSONObject;
@@ -46,10 +50,18 @@ public class ProductRightFragment extends BaseFragment{
     private Map<String,List<AVObject>> fToS;
     private Map<String,List<AVObject>> sToT;
     private ImageLoader imageLoader;
+    private Context mContext;
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        mContext=context;
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        imageLoader=ImageLoaderFactory.create(getActivity());
+        imageLoader=ImageLoaderFactory.create(mContext);
         LeftClickTypeId= this.getArguments().getString("clickTypeId");
         fToS=new Hashtable<>();
         sToT=new Hashtable<>();
@@ -60,7 +72,7 @@ public class ProductRightFragment extends BaseFragment{
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view=LayoutInflater.from(getActivity()).inflate(R.layout.fragment_product_right_content,null);
+        view=LayoutInflater.from(mContext).inflate(R.layout.fragment_product_right_content,null);
         return view;
     }
     private View view;
@@ -82,47 +94,22 @@ public class ProductRightFragment extends BaseFragment{
      */
     private void getSecondTypebyFirstTypeId()
     {
-        AVQuery.doCloudQueryInBackground("select * from SecondType where firstTypeId='" +
-                LeftClickTypeId + "'", new CloudQueryCallback<AVCloudQueryResult>() {
-            @Override
-            public void done(AVCloudQueryResult avCloudQueryResult, AVException e) {
-                if (avCloudQueryResult != null) {
-                    List<AVObject> avObjects = (List<AVObject>) avCloudQueryResult.getResults();
-                    fToS.put(LeftClickTypeId, avObjects);
-                    for (final AVObject secondType : fToS.get(LeftClickTypeId)) {
-                        AVQuery.doCloudQueryInBackground("select * from ThirdType where " +
-                                "firstTypeId='" + LeftClickTypeId +
-                                "' and secondTypeId='" + secondType.getString("secondTypeId") + "'", new CloudQueryCallback<AVCloudQueryResult>() {
-                            @Override
-                            public void done(AVCloudQueryResult avCloudQueryResult, AVException e) {
-                                if (avCloudQueryResult != null) {
-                                    List<AVObject> avObjects = (List<AVObject>) avCloudQueryResult.getResults();
+        ReadProductList readProductList=new ReadProductList();
 
-                                    sToT.put(secondType.getString("secondTypeId"), avObjects);
-                                }
-                                handler.sendEmptyMessage(0x11);
-                            }
-                        });
-                    }
-
-                }
-            }
-        });
+        readProductList.getSecondTypebyFirstTypeId(LeftClickTypeId, handler);
     }
-
-
 
 
     private void initView(){
         content=(LinearLayout)view.findViewById(R.id.item);
-        final int oneWidth=WHUtil.getDeviceScreenWidth(getActivity())*1/4;
+        final int oneWidth=WHUtil.getDeviceScreenWidth(mContext)*1/4;
        new Thread(new Runnable() {
            @Override
            public void run() {
                for(int i=0;i<fToS.get(LeftClickTypeId).size();i++){
                    AVObject secondType=fToS.get(LeftClickTypeId).get(i);
                    String secondId=secondType.getString("secondTypeId");
-                   TypeFragmentRightContent tfrc=new TypeFragmentRightContent(getActivity());
+                   TypeFragmentRightContent tfrc=new TypeFragmentRightContent(mContext);
                    tfrc.setLeftText(secondType.getString("secondTypeName"), 0, 0, 0);
                    tfrc.setRightText("bb", 0, 0, 0);
                    int count=0;
@@ -131,8 +118,8 @@ public class ProductRightFragment extends BaseFragment{
                    if(size>=3) {
                        for (int j = 0; j < size / 3; j++) {
 
-                           TypeFragmentOneLayoutH hLayout = new TypeFragmentOneLayoutH(getActivity());
-                           hLayout.setLayoutPadding(0, WHUtil.dip2px(getActivity(), 5), 0, 0);
+                           TypeFragmentOneLayoutH hLayout = new TypeFragmentOneLayoutH(mContext);
+                           hLayout.setLayoutPadding(0, WHUtil.dip2px(mContext, 5), 0, 0);
                            for (int k = 0; k < 3; k++) {
                                if (count < 12&& count<size) {
                                    loadView(secondId,oneWidth,hLayout,count);
@@ -147,8 +134,8 @@ public class ProductRightFragment extends BaseFragment{
                    }
 
                    if(size>3&&mod!=0){
-                       TypeFragmentOneLayoutH hLayout = new TypeFragmentOneLayoutH(getActivity());
-                       hLayout.setLayoutPadding(0, WHUtil.dip2px(getActivity(), 5), 0, 0);
+                       TypeFragmentOneLayoutH hLayout = new TypeFragmentOneLayoutH(mContext);
+                       hLayout.setLayoutPadding(0, WHUtil.dip2px(mContext, 5), 0, 0);
                        for (int j = 0; j < mod ; j++) {
                            loadView(secondId,oneWidth,hLayout,count);
                            count++;
@@ -157,10 +144,11 @@ public class ProductRightFragment extends BaseFragment{
                    }
 
                    if(size<3) {
-                       TypeFragmentOneLayoutH hLayout = new TypeFragmentOneLayoutH(getActivity());
-                       hLayout.setLayoutPadding(0, WHUtil.dip2px(getActivity(), 5), 0, 0);
+                       TypeFragmentOneLayoutH hLayout = new TypeFragmentOneLayoutH(mContext);
+                       hLayout.setLayoutPadding(0, WHUtil.dip2px(mContext, 5), 0, 0);
                        for (int j = 0; j < size ; j++) {
                            loadView(secondId,oneWidth,hLayout,count);
+                           count++;
                        }
                        tfrc.addContent(hLayout);
                    }
@@ -175,21 +163,32 @@ public class ProductRightFragment extends BaseFragment{
     }
     private void loadView(String secondId,int oneWidth,TypeFragmentOneLayoutH hLayout,int count){
         AVObject thirdType = sToT.get(secondId).get(count);
-        ActivityBottomItemView v = new ActivityBottomItemView(getActivity());
+        ActivityBottomItemView v = new ActivityBottomItemView(mContext);
         v.setFatherGravity(Gravity.CENTER_HORIZONTAL);
         if(thirdType.getString("photoUrl")!=null) {
             v.setImageViewByUrl(imageLoader, thirdType.getString("photoUrl"));
         }else {
             v.setImageViewByUrl(imageLoader,"http://pic2.ooopic.com/01/28/96/31b1OOOPIC95.jpg");
         }
-        v.setImageViewWH(oneWidth-WHUtil.dip2px(getActivity(),20),oneWidth-WHUtil.dip2px(getActivity(),20));
+        v.setImageViewWH(oneWidth-WHUtil.dip2px(mContext,20),oneWidth-WHUtil.dip2px(mContext,20));
         v.setText(thirdType.getString("thirdTypeName"), 0, 0, 0);
         v.setFatherWH(oneWidth, oneWidth);
+        productOnclick(v,thirdType.getObjectId());
         hLayout.addItem(v);
     }
-    private void loadImage(){
+    private void productOnclick(View view,final String id){
 
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bundle=new Bundle();
+                bundle.putString("objectId",id);
+                startActivity(new Intent(mContext, ProductListActivity.class)
+                        .putExtras(bundle));
+            }
+        });
     }
+
 
     int count=0;
     Handler handler=new Handler(){
@@ -198,7 +197,10 @@ public class ProductRightFragment extends BaseFragment{
             switch (msg.what){
                 case 0x11:
                     count++;
+                    List<Map> list=(List)msg.obj;
+                    fToS=list.get(0);
                     if(count==fToS.get(LeftClickTypeId).size()) {
+                        sToT=list.get(1);
                         initView();
                     }
 

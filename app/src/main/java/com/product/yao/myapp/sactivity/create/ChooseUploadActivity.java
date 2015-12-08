@@ -7,6 +7,7 @@ import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.view.View;
+import android.widget.Button;
 
 import com.avos.avoscloud.AVCloudQueryResult;
 import com.avos.avoscloud.AVException;
@@ -25,8 +26,10 @@ import com.product.yao.myapp.utils.MyDialog;
 import com.product.yao.myapp.utils.ToastUtil;
 import com.product.yao.myapp.utils.WHUtil;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Hashtable;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -36,6 +39,11 @@ import java.util.UUID;
 public class ChooseUploadActivity extends BaseActivity{
     private String id;
     private String photoType;
+    private Button productPhotoTypeBtn;
+    private String productPhotoType;
+    private static final String [] PRODUCTPHOTOTYPE=new String[]{
+            "封面","展示"
+    };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,11 +54,28 @@ public class ChooseUploadActivity extends BaseActivity{
         photoType=getIntent().getStringExtra("photoType");
         if(photoType!=null) {
             if (photoType.equals("product")) {
-                getProductById();
+                if(id!=null) {
+                    getProductById();
+                }else {
+                    try {
+                        product=AVObject.parseAVObject(getIntent().getStringExtra("product"));
+                        handler.sendEmptyMessage(0x11);
+                    }catch (Exception e){
+
+                    }
+
+                }
             }else {
                 getThirdType();
             }
         }
+        productPhotoTypeBtn=(Button)findViewById(R.id.product_photo_type);
+        productPhotoTypeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MyDialog.singleChooseDialog(ChooseUploadActivity.this,handler,PRODUCTPHOTOTYPE,0x111);
+            }
+        });
         findViewById(R.id.upload_choose).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -75,6 +100,7 @@ public class ChooseUploadActivity extends BaseActivity{
         });
     }
     private AVObject product;
+    private boolean isGetProduct;
     private void getProductById(){
         AVQuery.doCloudQueryInBackground("select * from Product where productId='" + id + "'", new CloudQueryCallback<AVCloudQueryResult>() {
             @Override
@@ -104,12 +130,11 @@ public class ChooseUploadActivity extends BaseActivity{
                         @Override
                         public void done(AVException e) {
                             if (e == null) {
-                                ProductPhoto productPhoto=new ProductPhoto();
-                                productPhoto.setProductId(id);
-                                productPhoto.setProductPhotoFile(avFile);
-                                productPhoto.setProductPhotoName(product.getString("productName"));
-                                productPhoto.setProductPhotoType("展示");
-                                Create.createobject(ChooseUploadActivity.this,productPhoto);
+                                Message message=new Message();
+                                message.obj=avFile;
+                                message.what=0x21;
+                                handler.sendMessage(message);
+
                             } else {
                                 ToastUtil.showshort(ChooseUploadActivity.this, e.getMessage());
                             }
@@ -179,13 +204,62 @@ public class ChooseUploadActivity extends BaseActivity{
         public void handleMessage(Message msg) {
             switch (msg.what){
                 case 0x11:
-
+                    isGetProduct=true;
                     break;
                 case 0x12:
                     upLoadPhoto(path);
                     break;
+                case 0x21:
+                    uploadPhotoDone=true;
+                    if(isGetProduct&&uploadPhotoDone) {
+                        AVFile avFile = (AVFile) msg.obj;
+                        if(productPhotoType.equals("展示")) {
+                            String url = avFile.getUrl();
+                            List<String> productPhotoUrl=product.getList("productPhotoUrl");
+                            if(productPhotoUrl==null){
+                                productPhotoUrl=new ArrayList<>();
+                            }
+                            productPhotoUrl.add(url);
+                            product.put("photoUrl", productPhotoUrl);
+                            product.saveInBackground(new SaveCallback() {
+                                @Override
+                                public void done(AVException e) {
+                                    if (e == null) {
+                                        ToastUtil.showshort(ChooseUploadActivity.this, "success");
+                                    } else {
+                                        ToastUtil.showshort(ChooseUploadActivity.this, e.getMessage());
+                                    }
+                                }
+                            });
+                        }else {
+                            String url = avFile.getThumbnailUrl(
+                                    false,
+                                    WHUtil.getDeviceScreenWidth(ChooseUploadActivity.this) * 1 / 4 - WHUtil.dip2px(ChooseUploadActivity.this, 20),
+                                    WHUtil.getDeviceScreenWidth(ChooseUploadActivity.this) * 1 / 4 - WHUtil.dip2px(ChooseUploadActivity.this, 20));
+                            product.put("thumbUrl", url);
+                            product.saveInBackground(new SaveCallback() {
+                                @Override
+                                public void done(AVException e) {
+                                    if (e == null) {
+                                        ToastUtil.showshort(ChooseUploadActivity.this, "success");
+                                    } else {
+                                        ToastUtil.showshort(ChooseUploadActivity.this, e.getMessage());
+                                    }
+                                }
+                            });
+                        }
+                        isGetProduct=false;
+                        uploadPhotoDone=false;
+                    }else {
+                        ToastUtil.showshort(ChooseUploadActivity.this,"please commit upload later or check network");
+                    }
+                    break;
                 case 0x22:
                     getThirdObj=true;
+                    break;
+                case 0x111:
+                    int pos=(int)msg.obj;
+                    productPhotoType=PRODUCTPHOTOTYPE[pos];
                     break;
                 case 0121:
                     uploadPhotoDone=true;
