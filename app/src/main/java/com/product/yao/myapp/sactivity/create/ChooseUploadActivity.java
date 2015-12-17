@@ -42,7 +42,7 @@ public class ChooseUploadActivity extends BaseActivity{
     private Button productPhotoTypeBtn;
     private String productPhotoType;
     private static final String [] PRODUCTPHOTOTYPE=new String[]{
-            "封面","展示"
+            "封面","展示","listThumb"
     };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -123,9 +123,10 @@ public class ChooseUploadActivity extends BaseActivity{
             if(photoType.equals("product")){
                 try {
                     String  ss=path.substring(path.lastIndexOf("/") + 1, path.length());
-                    ToastUtil.showshort(ChooseUploadActivity.this,ss);
+                    ToastUtil.showshort(ChooseUploadActivity.this, ss);
                     final AVFile avFile=AVFile.withAbsoluteLocalPath(path.substring(path.lastIndexOf("/")+1,path.length()),path);
                     avFile.getName();
+
                     avFile.saveInBackground(new SaveCallback() {
                         @Override
                         public void done(AVException e) {
@@ -215,12 +216,12 @@ public class ChooseUploadActivity extends BaseActivity{
                         AVFile avFile = (AVFile) msg.obj;
                         if(productPhotoType.equals("展示")) {
                             String url = avFile.getUrl();
-                            List<String> productPhotoUrl=product.getList("productPhotoUrl");
+                            List<String> productPhotoUrl=product.getList("photoShowUrl");
                             if(productPhotoUrl==null){
                                 productPhotoUrl=new ArrayList<>();
                             }
                             productPhotoUrl.add(url);
-                            product.put("photoUrl", productPhotoUrl);
+                            product.put("photoShowUrl", productPhotoUrl);
                             product.saveInBackground(new SaveCallback() {
                                 @Override
                                 public void done(AVException e) {
@@ -231,11 +232,31 @@ public class ChooseUploadActivity extends BaseActivity{
                                     }
                                 }
                             });
-                        }else {
+                        }else if(productPhotoType.equals("封面")){
+                            String url = avFile.getUrl();
+                            List<String> productPhotoUrl=product.getList("photoCoverUrl");
+                            if(productPhotoUrl==null){
+                                productPhotoUrl=new ArrayList<>();
+                            }
+                            productPhotoUrl.add(url);
+                            product.put("photoCoverUrl", productPhotoUrl);
+                            product.saveInBackground(new SaveCallback() {
+                                @Override
+                                public void done(AVException e) {
+                                    if (e == null) {
+                                        ToastUtil.showshort(ChooseUploadActivity.this, "success");
+                                    } else {
+                                        ToastUtil.showshort(ChooseUploadActivity.this, e.getMessage());
+                                    }
+                                }
+                            });
+                        }
+
+                        else {
                             String url = avFile.getThumbnailUrl(
                                     false,
-                                    WHUtil.getDeviceScreenWidth(ChooseUploadActivity.this) * 1 / 4 - WHUtil.dip2px(ChooseUploadActivity.this, 20),
-                                    WHUtil.getDeviceScreenWidth(ChooseUploadActivity.this) * 1 / 4 - WHUtil.dip2px(ChooseUploadActivity.this, 20));
+                                    WHUtil.getDeviceScreenWidth(ChooseUploadActivity.this) * 1 /2 - WHUtil.dip2px(ChooseUploadActivity.this, 20),
+                                    WHUtil.getDeviceScreenWidth(ChooseUploadActivity.this) * 1 / 2 - WHUtil.dip2px(ChooseUploadActivity.this, 20));
                             product.put("thumbUrl", url);
                             product.saveInBackground(new SaveCallback() {
                                 @Override

@@ -9,6 +9,7 @@ import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVQuery;
 import com.avos.avoscloud.CloudQueryCallback;
+import com.avos.avoscloud.FindCallback;
 import com.product.yao.myapp.utils.ToastUtil;
 
 import java.util.ArrayList;
@@ -121,10 +122,18 @@ public class ReadProduct {
                     }
                 });
     }
-    private AVCloudQueryResult resultProduct;
-    private String []itemsProduct;
+
+
+
+
+    /**
+     * get productList by thirdTypeId
+     * @param thirdTypeId thirdTypeId string
+     */
+//    private AVCloudQueryResult resultProduct;
+//    private String []itemsProduct;
     public void getProductListByThirdId(String thirdTypeId){
-        AVQuery.doCloudQueryInBackground("select * from Product where thirdTypeId='" + thirdTypeId + "'", new CloudQueryCallback<AVCloudQueryResult>() {
+        AVQuery.doCloudQueryInBackground("select * from Product where thirdTypeId=?", new CloudQueryCallback<AVCloudQueryResult>() {
             @Override
             public void done(AVCloudQueryResult avCloudQueryResult, AVException e) {
                 if(avCloudQueryResult!=null&&avCloudQueryResult.getResults().size()>0){
@@ -148,6 +157,34 @@ public class ReadProduct {
                 handler.sendMessage(message);
 
             }
-        });
+        },thirdTypeId);
+    }
+
+    /**
+     * get productList by thirdTypeId
+     * @param thirdTypeId thirdTypeId string
+     */
+    private AVCloudQueryResult resultProduct;
+    private String []itemsProduct;
+    public void getProductListByThirdId(String thirdTypeId,int page,int size){
+        int skip=page*size;
+        AVQuery<AVObject> query=new AVQuery("Product");
+        query.setSkip(skip);
+        query.setLimit(size);
+        try{
+            query.whereEqualTo("thirdTypeId",thirdTypeId);
+            query.findInBackground(new FindCallback<AVObject>() {
+                @Override
+                public void done(List<AVObject> list, AVException e) {
+                    Message message=new Message();
+                    message.obj=list;
+                    message.what=0x44;
+                    handler.sendMessage(message);
+                }
+            });
+        }catch (Exception e){
+
+        }
+
     }
 }

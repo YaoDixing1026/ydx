@@ -65,6 +65,13 @@
         <dex dex="/home/paichufang/ydxProject/MyApp/app/build/intermediates/pre-dexed/debug/clog-1.0.2-d1267f2a1387b092b3592e907ed89d85c114b638.jar" />
     </item>
     <item
+        jar="/home/paichufang/ydxProject/MyApp/app/build/intermediates/exploded-aar/com.loopeer.android.thirdparty.pulltorefresh/Android-PullToRefresh/2.1.1/classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="9f11d8acfc18e091d8a247a8d5a34266b6cb04ab">
+        <dex dex="/home/paichufang/ydxProject/MyApp/app/build/intermediates/pre-dexed/debug/classes-cb3f722ecda11820815c832bf1b30493558443c7.jar" />
+    </item>
+    <item
         jar="/home/paichufang/ydxProject/MyApp/app/libs/fastjson.jar"
         jumboMode="false"
         revision="23.0.1"

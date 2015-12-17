@@ -6,40 +6,28 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
-import com.avos.avoscloud.AVCloudQueryResult;
-import com.avos.avoscloud.AVException;
-import com.avos.avoscloud.AVFile;
 import com.avos.avoscloud.AVObject;
-import com.avos.avoscloud.AVQuery;
-import com.avos.avoscloud.CloudQueryCallback;
 import com.product.yao.myapp.R;
 import com.product.yao.myapp.base.BaseFragment;
 import com.product.yao.myapp.cactivity.product.ProductListActivity;
-import com.product.yao.myapp.entity.FirstType;
 import com.product.yao.myapp.myview.ActivityBottomItemView;
 import com.product.yao.myapp.myview.typerightcoutent.TypeFragmentOneLayoutH;
 import com.product.yao.myapp.myview.typerightcoutent.TypeFragmentRightContent;
-import com.product.yao.myapp.sactivity.read.ReadProductList;
+import com.product.yao.myapp.sactivity.read.ReadThirdTypeByFirstTypeId;
 import com.product.yao.myapp.utils.WHUtil;
 
-import org.json.JSONObject;
-
-import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 
-import in.srain.cube.image.CubeImageView;
 import in.srain.cube.image.ImageLoader;
 import in.srain.cube.image.ImageLoaderFactory;
-import in.srain.cube.image.ImageTask;
 
 /**
  * Created by paichufang on 15-11-7.
@@ -94,9 +82,9 @@ public class ProductRightFragment extends BaseFragment{
      */
     private void getSecondTypebyFirstTypeId()
     {
-        ReadProductList readProductList=new ReadProductList();
+        ReadThirdTypeByFirstTypeId readThirdTypeByFirstTypeId =new ReadThirdTypeByFirstTypeId();
 
-        readProductList.getSecondTypebyFirstTypeId(LeftClickTypeId, handler);
+        readThirdTypeByFirstTypeId.getSecondTypebyFirstTypeId(LeftClickTypeId, handler);
     }
 
 
@@ -173,7 +161,7 @@ public class ProductRightFragment extends BaseFragment{
         v.setImageViewWH(oneWidth-WHUtil.dip2px(mContext,20),oneWidth-WHUtil.dip2px(mContext,20));
         v.setText(thirdType.getString("thirdTypeName"), 0, 0, 0);
         v.setFatherWH(oneWidth, oneWidth);
-        productOnclick(v,thirdType.getObjectId());
+        productOnclick(v,thirdType.getString("thirdTypeId"));
         hLayout.addItem(v);
     }
     private void productOnclick(View view,final String id){

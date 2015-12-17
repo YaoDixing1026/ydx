@@ -17,14 +17,14 @@ import java.util.Map;
 /**
  * Created by paichufang on 15-12-7.
  */
-public class ReadProductList {
+public class ReadThirdTypeByFirstTypeId {
 
 
 
     private Map<String,List<AVObject>> fToS;
     private Map<String,List<AVObject>> sToT;
 
-    public ReadProductList(){
+    public ReadThirdTypeByFirstTypeId(){
         fToS=new Hashtable<>();
         sToT=new Hashtable<>();
     }

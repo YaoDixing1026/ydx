@@ -20,7 +20,8 @@ public class Product extends AVObject{
     private boolean productStatus;
     private int productCount;
     private String productDescription;
-    private List<String> productPhotoUrl;
+    private List<String> photoShowUrl;
+    private List<String> photoCoverUrl;
     private String productionDate;
     private String productionLife;
     private String thumbUrl;
@@ -112,12 +113,12 @@ public class Product extends AVObject{
         this.productFirstTypeId = productFirstTypeId;
     }
 
-    public List<String> getProductPhotoId() {
-        return productPhotoUrl;
+    public List<String> getPhotoShowUrl() {
+        return photoShowUrl;
     }
 
-    public void setProductPhotoId(List<String> productPhotoId) {
-        this.productPhotoUrl = productPhotoId;
+    public List<String> getPhotoCoverUrl() {
+        return photoCoverUrl;
     }
 
     public double getProductOnSalePrice() {
@@ -142,5 +143,14 @@ public class Product extends AVObject{
 
     public void setProductSecondTypeId(String productSecondTypeId) {
         this.productSecondTypeId = productSecondTypeId;
+    }
+
+
+    public String getThumbUrl() {
+        return thumbUrl;
+    }
+
+    public void setThumbUrl(String thumbUrl) {
+        this.thumbUrl = thumbUrl;
     }
 }

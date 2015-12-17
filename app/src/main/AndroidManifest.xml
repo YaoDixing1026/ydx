@@ -25,9 +25,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
 
-
         </activity>
-
+        <activity android:name=".cactivity.product.ProductListActivity"/>
+        <activity android:name=".cactivity.product.ProductDetailActivity"/>
 
 
 
