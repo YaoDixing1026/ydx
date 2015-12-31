@@ -123,10 +123,9 @@ public class PictureUploadActivity extends BaseActivity {
     }
 
     private void setUpInfo(String path){
-        Intent intent=new Intent();
+        Intent intent=new Intent(this,CutImageActivity.class);
         intent.putExtra("path", path);
-        intent.setClassName(this.getPackageName(),getIntent().getStringExtra("className"));
-        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.putExtra("className", getIntent().getStringExtra("className"));
         startActivity(intent);
     }
 }

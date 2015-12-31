@@ -41,6 +41,7 @@
         <activity android:name=".sactivity.create.PictureUploadActivity"/>
         <activity android:name=".sactivity.create.ChooseUploadActivity"/>
         <activity android:name=".sactivity.create.ProductPhotoUploadActivity"/>
+        <activity android:name=".sactivity.create.CutImageActivity"/>
     </application>
 
 </manifest>

@@ -116,5 +116,8 @@
     <color name="whiteness">#ffffff</color>
     <!--Restructure end-->
 
-
+    <color name="border">@color/white</color>
+    <color name="guideline">@color/white</color>
+    <color name="corner">@android:color/white</color>
+    <color name="surrounding_area">#00000000</color>
 </resources>

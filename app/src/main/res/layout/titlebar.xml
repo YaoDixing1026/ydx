@@ -35,7 +35,15 @@
         android:layout_alignParentRight="true"
         android:layout_marginRight="20dp"
         android:layout_centerVertical="true"/>
-
+        <TextView
+            android:visibility="gone"
+            android:id="@+id/more_text"
+            android:layout_toLeftOf="@id/more"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="20dp"
+            android:layout_centerVertical="true"/>
         <TextView
             android:id="@+id/line"
             android:layout_width="match_parent"

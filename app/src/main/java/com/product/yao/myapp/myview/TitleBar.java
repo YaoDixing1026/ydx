@@ -25,6 +25,7 @@ public class TitleBar extends LinearLayout implements OnClickListener {
     private TextView mTitle;
     private ImageView mMore;
     private TextView line;
+    private TextView moreText;
     private onBtnClickListener mListener;
     private View mTitleBar;
     public interface onBtnClickListener {
@@ -55,9 +56,28 @@ public class TitleBar extends LinearLayout implements OnClickListener {
         mTitle=(TextView)mTitleBar.findViewById(R.id.title);
         mMore=(ImageView)mTitleBar.findViewById(R.id.more);
         line=(TextView)mTitleBar.findViewById(R.id.line);
+        moreText=(TextView)mTitleBar.findViewById(R.id.more_text);
         mBack.setOnClickListener(this);
         mTitle.setOnClickListener(this);
         mMore.setOnClickListener(this);
+        moreText.setOnClickListener(this);
+    }
+    public void setMoreText(String text){
+        moreText.setText(text);
+    }
+    public void setMoreTextColor(int color){
+        moreText.setTextColor(color);
+    }
+    public void setMoreTextSize(float size){
+        moreText.setTextSize(TypedValue.COMPLEX_UNIT_DIP, size);
+    }
+    public void setMoreTextVisiable(boolean flag){
+        if (flag){
+            moreText.setVisibility(VISIBLE);
+        }
+        else {
+            moreText.setVisibility(GONE);
+        }
     }
     public void setBackImageResource(int resource){
         mBackImage.setImageResource(resource);
@@ -131,6 +151,11 @@ public class TitleBar extends LinearLayout implements OnClickListener {
             case R.id.title:
                 if(null!=mListener) {
                     mListener.titleClick();
+                }
+                break;
+            case R.id.more_text:
+                if(null!=mListener) {
+                    mListener.moreClick();
                 }
                 break;
         }
